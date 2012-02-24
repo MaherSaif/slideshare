@@ -41,7 +41,7 @@ module SlideShare
       end
       curl.http_post(*params)
       
-      body = ToHashParser.from_xml(curl.body_str)
+      body = HTTParty::Parser.call(curl.body_str, :xml)
       response = base.send(:catch_errors, body)
       # I'd presume the id returned was an integer
       response["SlideShowUploaded"]["SlideShowID"].to_i
